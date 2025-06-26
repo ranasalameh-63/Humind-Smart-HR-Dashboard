@@ -11,6 +11,7 @@ const employeeSchema = new mongoose.Schema(
     startDate: Date,
     performanceScores: [{ type: mongoose.Schema.Types.ObjectId, ref: "Performance" }],
     trainings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Training" }],
+    isDeleted: { type: Boolean, default: false }
   },
   { timestamps: true }
 );

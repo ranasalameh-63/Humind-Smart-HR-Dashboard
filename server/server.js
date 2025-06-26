@@ -14,6 +14,7 @@ const server = http.createServer(app);
 
 // Routes
 const userRoutes = require('./Routes/usersRoute');
+const employeeRoutes = require('./Routes/employeeRoutes');
 
 
 // Middleware
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routes
 app.use("/api/users", userRoutes);
+app.use("/api/employee", employeeRoutes);
 
 
 app.get("/", (req, res) => {
