@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PerformancePage() {
+function StrengthsWeaknesses() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function PerformancePage() {
   )
 }
 
-export default PerformancePage
+export default StrengthsWeaknesses

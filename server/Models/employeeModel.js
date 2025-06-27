@@ -7,6 +7,7 @@ const employeeSchema = new mongoose.Schema(
     phone: String,
     department: String,
     position: String,
+    profileImage: String,
     status: { type: String, enum: ["active", "on_leave", "terminated"], default: "active" },
     startDate: Date,
     performanceScores: [{ type: mongoose.Schema.Types.ObjectId, ref: "Performance" }],

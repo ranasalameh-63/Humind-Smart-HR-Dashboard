@@ -1,4 +1,7 @@
 require("dotenv").config();
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS length:", process.env.EMAIL_PASS?.length);
+
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./Config/DB");
@@ -15,6 +18,7 @@ const server = http.createServer(app);
 // Routes
 const userRoutes = require('./Routes/usersRoute');
 const employeeRoutes = require('./Routes/employeeRoutes');
+const performanceRoutes = require('./Routes/performanceRoutes');
 
 
 // Middleware
@@ -35,6 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 //Routes
 app.use("/api/users", userRoutes);
 app.use("/api/employee", employeeRoutes);
+app.use("/api/performance", performanceRoutes);
 
 
 app.get("/", (req, res) => {

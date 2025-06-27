@@ -5,10 +5,10 @@ import Footer from './components/Footer';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
+import NotFoundPage from "./components/PageNotFound";
 import Home from "./pages/HomePage/home";
 import Dashboard from "./pages/DashboardPage/Dashboard";
-import Performance from "./pages/PerformancePage/PerformancePage";
+import Performance from "./pages/PerformancePage/PerformanceAnalyticsPage";
 import Trainings from "./pages/TrainingSuggestionsPage/TrainingSuggestionsPage";
 import ChurnRisk from "./pages/ChurnRiskPage/ChurnRiskPage";
 import EmployeeProfile from "./pages/EmployeeProfilePage/EmployeeProfilePage";
@@ -48,6 +48,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
     </Router>

@@ -6,6 +6,12 @@ const performanceSchema = new mongoose.Schema(
     reviewer: String,
     score: { type: Number, min: 0, max: 100 },
     notes: String,
+    criteria: {
+    communication: Number,
+    teamwork: Number,
+    productivity: Number,
+    reliability: Number,
+  },
     date: { type: Date, default: Date.now },
   },
   { timestamps: true }
