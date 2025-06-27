@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   addPerformance,
+  getEmployeesWithPerformance,
   getPerformanceOverview,
   getPerformanceTimeline,
   getStrengthsWeaknesses,
@@ -12,6 +13,9 @@ const router = express.Router();
 
 // Add new performance evaluation
 router.post("/add", addPerformance);
+
+// get employees whose have performance evaluation
+router.get("/with-evaluation", getEmployeesWithPerformance);
 
 // Performance overview
 router.get("/overview/:employeeId", getPerformanceOverview);

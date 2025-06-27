@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Plus, Users, Search, Filter, X  } from 'lucide-react';
+import { Plus, Users, Search, Filter, X } from 'lucide-react';
 import { toast } from "react-toastify";
 
 import EmployeeModal from "../../pages/EmployeesManagementPage/EmployeeModal";
@@ -48,15 +48,15 @@ export default function EmployeesManagementPage() {
     } finally {
       setLoading(false);
     }
-    
+
   };
 
   useEffect(() => {
-  fetchEmployees();
-}, [page, searchTerm]);
+    fetchEmployees();
+  }, [page, searchTerm]);
 
 
-  
+
 
 
   const handleChange = (e) => {
@@ -179,103 +179,90 @@ export default function EmployeesManagementPage() {
 
   return (
     <div className="p-6 min-h-screen">
-      <div className="flex justify-between items-center mb-8 p-6 bg-gradient-to-r from-via-purple-100 via-purple-100 to-white rounded-xl border border-gray-100 shadow-sm">
-        {/* Left Side - Title with Icon */}
-        <div className="flex items-center space-x-4">
-          <div className="p-3 bg-[#3B1E54] rounded-lg shadow-md">
-            <Users className="w-8 h-8 text-white" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold bg-[#3B1E54] bg-clip-text text-transparent">
-              Employee Management
-            </h1>
-          </div>
-        </div>
-         <div className="w-full max-w-4xl mx-auto p-6">
-      <div className="relative">
-        {/* Enhanced Search Container */}
-        <div className={`
-          flex items-center gap-3 p-1 
-          bg-white rounded-xl shadow-lg border-2 transition-all duration-300
-          ${isSearchFocused 
-            ? 'border-purple-400 shadow-purple-100 shadow-2xl scale-[1.02]' 
-            : 'border-gray-200 hover:border-gray-300 hover:shadow-xl'
-          }
-        `}>
-          
-          {/* Search Input Container */}
-          <div className="flex-1 relative">
-            <div className="flex items-center">
-              <Search 
-                className={`
-                  absolute left-4 transition-colors duration-200
-                  ${isSearchFocused ? 'text-purple-500' : 'text-gray-400'}
-                `} 
-                size={20} 
-              />
-              
-              <input
-                type="text"
-                placeholder="Search by name, email, department, or role..."
-                className="
-                  w-full pl-12 pr-10 py-4 
-                  text-gray-700 placeholder-gray-400
-                  bg-transparent border-none outline-none
-                  text-lg font-medium
-                "
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-              />
-              
-            </div>
-          </div>
-
-          {/* Enhanced Apply Button */}
-          <button
-            onClick={fetchEmployees}
-            className="
-              group relative px-8 py-4 
-              bg-[#3B1E54]
-              hover:from-purple-700 hover:to-purple-800
-              text-white font-semibold rounded-lg
-              shadow-lg hover:shadow-xl
-              transform hover:scale-105 active:scale-95
-              transition-all duration-200
-              border-2 border-transparent hover:border-purple-300
-            "
-          >
-            <span className="flex items-center gap-2">
-              <Search size={18} className="group-hover:rotate-12 transition-transform duration-200" />
-              Search
-            </span>
-            
-            {/* Subtle glow effect */}
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-400 to-purple-500 opacity-0 group-hover:opacity-20 transition-opacity duration-200 -z-10 blur-sm"></div>
-          </button>
-        
-        </div>
-
-      </div>
+      <div className="flex justify-between items-center mb-4 p-4 bg-gradient-to-r from-[#9B7EBD]/10 via-[#9B7EBD]/5 to-white rounded-xl border border-[#9B7EBD]/20 shadow-lg shadow-[#000000]/10">
+  {/* Left Side - Title with Icon */}
+  <div className="flex items-center space-x-3">
+    <div className="p-2 bg-gradient-to-br from-[#000000] via-[#3B1E54] to-[#9B7EBD] rounded-lg shadow-lg">
+      <Users className="w-5 h-5 text-white" />
     </div>
-        {/* Right Side - Action Button */}
-        <div className="flex items-center space-x-3">
-          <button
-            onClick={openAddModal}
-            className="group relative bg-[#3B1E54] text-white px-6 py-3 rounded-xl font-semibold 
-                     hover:bg-[#9B7EBD] transition-all duration-300 ease-in-out
-                     shadow-lg hover:shadow-xl transform hover:-translate-y-0.5
-                     border-2 border-transparent hover:border-[#3B1E54]/20
-                     flex items-center space-x-2"
-          >
-            <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
-            <span> Employee</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#9B7EBD]/20 to-transparent 
-                          opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
-          </button>
+    <div>
+      <h1 className="text-2xl font-bold bg-gradient-to-r from-[#000000] via-[#3B1E54] to-[#9B7EBD] bg-clip-text text-transparent">
+        Employee Management
+      </h1>
+    </div>
+  </div>
+
+  {/* Center - Compact Search */}
+  <div className="flex-1 max-w-md mx-4">
+    <div className={`
+      flex items-center gap-2 p-1
+      bg-white rounded-lg shadow-md border-2 transition-all duration-300
+      ${isSearchFocused
+        ? 'border-[#9B7EBD] shadow-[#9B7EBD]/30 ring-1 ring-[#9B7EBD]/20'
+        : 'border-[#3B1E54]/20 hover:border-[#3B1E54]/40'
+      }
+    `}>
+      {/* Search Input */}
+      <div className="flex-1 relative">
+        <div className="flex items-center">
+          <Search
+            className={`
+              absolute left-3 transition-colors duration-200
+              ${isSearchFocused ? 'text-[#9B7EBD]' : 'text-[#3B1E54]/60'}
+            `}
+            size={16}
+          />
+          <input
+            type="text"
+            placeholder="Search employees..."
+            className="
+              w-full pl-10 pr-3 py-2 text-sm
+              text-[#000000] placeholder-[#3B1E54]/50
+              bg-transparent border-none outline-none
+              font-medium
+            "
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onFocus={() => setIsSearchFocused(true)}
+            onBlur={() => setIsSearchFocused(false)}
+          />
         </div>
       </div>
+
+      {/* Compact Search Button */}
+      <button
+        onClick={fetchEmployees}
+        className="
+          group relative px-3 py-2
+          bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD]
+          text-white font-semibold rounded-md
+          shadow-md hover:shadow-lg
+          transform hover:scale-105 active:scale-95
+          transition-all duration-200
+        "
+      >
+        <Search size={14} className="group-hover:rotate-12 transition-transform duration-200" />
+        <div className="absolute inset-0 rounded-md bg-gradient-to-r from-[#9B7EBD]/20 to-[#3B1E54]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+      </button>
+    </div>
+  </div>
+
+  {/* Right Side - Add Button */}
+  <div className="flex items-center">
+    <button
+      onClick={openAddModal}
+      className="group relative bg-gradient-to-r from-[#000000] via-[#3B1E54] to-[#9B7EBD] text-white px-4 py-2 rounded-lg font-semibold 
+                 hover:shadow-lg transform hover:-translate-y-0.5
+                 transition-all duration-300
+                 flex items-center space-x-2"
+    >
+      <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
+      <span className="text-sm">Add Employee</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#9B7EBD]/30 to-[#3B1E54]/30 
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+    </button>
+  </div>
+</div>
 
       {loading ? (
         <p>Loading...</p>
@@ -334,33 +321,33 @@ export default function EmployeesManagementPage() {
         </div>
       </EmployeeModal>
       <div className="flex justify-center items-center gap-3 mt-6">
-  <button
-    onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-    disabled={page === 1}
-    className="px-6 py-3 bg-white border-2 border-[#3B1E54] text-[#3B1E54] rounded-lg font-semibold 
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+          className="px-6 py-3 bg-white border-2 border-[#3B1E54] text-[#3B1E54] rounded-lg font-semibold 
                hover:bg-[#3B1E54] hover:text-white transition-all duration-300 ease-in-out
                disabled:bg-gray-100 disabled:border-gray-300 disabled:text-gray-400 
                disabled:hover:bg-gray-100 disabled:hover:text-gray-400 disabled:cursor-not-allowed
                shadow-md hover:shadow-lg transform hover:scale-105"
-  >
-    ← Previous
-  </button>
-  
-  <div className="px-6 py-3 bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] text-white 
+        >
+          ← Previous
+        </button>
+
+        <div className="px-6 py-3 bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] text-white 
                   rounded-lg font-bold text-lg shadow-lg border-2 border-[#3B1E54]
                   min-w-[60px] text-center">
-    {page}
-  </div>
-  
-  <button
-    onClick={() => setPage((prev) => prev + 1)}
-    className="px-6 py-3 bg-white border-2 border-[#3B1E54] text-[#3B1E54] rounded-lg font-semibold
+          {page}
+        </div>
+
+        <button
+          onClick={() => setPage((prev) => prev + 1)}
+          className="px-6 py-3 bg-white border-2 border-[#3B1E54] text-[#3B1E54] rounded-lg font-semibold
                hover:bg-[#3B1E54] hover:text-white transition-all duration-300 ease-in-out
                shadow-md hover:shadow-lg transform hover:scale-105"
-  >
-    Next →
-  </button>
-</div>
+        >
+          Next →
+        </button>
+      </div>
 
     </div>
   );

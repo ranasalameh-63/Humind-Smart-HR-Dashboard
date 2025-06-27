@@ -1,13 +1,14 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { X, User, FileText, BarChart3, MessageSquare, Users, Zap, Shield } from "lucide-react";
+import { X, User, FileText, BarChart3, MessageSquare, Users, Zap, Shield, CalendarIcon } from "lucide-react";
 import { toast } from "react-toastify";
 
 
-export default function AddPerformanceForm({ employees = [], onAdded, onClose }) {
+export default function AddPerformanceForm({ evaluatedEmployees = [], onAdded, onClose }) {
   const [employeeId, setEmployeeId] = useState("");
   const [notes, setNotes] = useState("");
+  const [evaluationMonth, setEvaluationMonth] = useState("");
   const [criteria, setCriteria] = useState({
     communication: 0,
     teamwork: 0,
@@ -26,27 +27,25 @@ export default function AddPerformanceForm({ employees = [], onAdded, onClose })
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const criteriaValues = Object.values(criteria || {});
     const score =
       criteriaValues.reduce((sum, val) => sum + val, 0) / (criteriaValues.length || 1);
-    
+
     try {
-      // Simulating API call - replace with your actual axios call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Your actual API call would be:
       await axios.post("http://localhost:9000/api/performance/add", {
         employeeId,
         score: Math.round(score),
         notes,
         criteria,
+        evaluationMonth,
       });
-      
+
       toast.success("Performance added successfully!");
-      onAdded();
+      onAdded?.();
       onClose?.();
-    } catch {
+    } catch(err) {
+        console.error("Error while adding performance:", err);
       toast.error("Failed to add performance");
     } finally {
       setIsSubmitting(false);
@@ -63,7 +62,7 @@ export default function AddPerformanceForm({ employees = [], onAdded, onClose })
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-black/100 via-purple-900/20 to-black/60 backdrop-blur-sm flex justify-center items-center z-50 animate-fadeIn">
-  <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 w-full max-w-2xl max-h-[95vh] overflow-y-auto shadow-2xl relative border border-white/20 transform animate-slideUp">
+      <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 w-full max-w-2xl max-h-[95vh] overflow-y-auto shadow-2xl relative border border-white/20 transform animate-slideUp">
         {/* Header */}
         <div className="bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] p-6 rounded-t-2xl relative">
           <button
@@ -97,13 +96,26 @@ export default function AddPerformanceForm({ employees = [], onAdded, onClose })
               className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-[#9B7EBD] focus:outline-none transition-colors duration-200 bg-white"
             >
               <option value="">Choose an employee...</option>
-              {employees.map((emp) => (
+              {evaluatedEmployees.map((emp) => (
                 <option key={emp._id} value={emp._id}>
                   {emp.name}
                 </option>
               ))}
             </select>
           </div>
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2 text-[#3B1E54] font-semibold">
+              <span>Evaluation Month</span>
+            </label>
+            <input
+              type="month"
+              value={evaluationMonth}
+              onChange={(e) => setEvaluationMonth(e.target.value)}
+              required
+              className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-[#9B7EBD] focus:outline-none transition-colors duration-200 bg-white"
+            />
+          </div>
+
 
           {/* Performance Criteria */}
           <div className="space-y-4">
@@ -111,7 +123,7 @@ export default function AddPerformanceForm({ employees = [], onAdded, onClose })
               <BarChart3 size={20} />
               <span>Performance Criteria</span>
             </h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {Object.keys(criteria).map((key) => {
                 const IconComponent = criteriaIcons[key];
@@ -165,7 +177,7 @@ export default function AddPerformanceForm({ employees = [], onAdded, onClose })
                 </span>
               </div>
               <div className="mt-2 bg-white bg-opacity-20 rounded-full h-2">
-                <div 
+                <div
                   className="bg-white rounded-full h-2 transition-all duration-300"
                   style={{ width: `${averageScore}%` }}
                 ></div>

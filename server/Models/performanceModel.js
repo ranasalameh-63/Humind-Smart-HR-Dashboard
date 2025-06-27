@@ -12,6 +12,7 @@ const performanceSchema = new mongoose.Schema(
     productivity: Number,
     reliability: Number,
   },
+    evaluationMonth: { type: String, required: true },
     date: { type: Date, default: Date.now },
   },
   { timestamps: true }

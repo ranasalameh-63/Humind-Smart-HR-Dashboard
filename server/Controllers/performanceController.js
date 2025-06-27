@@ -4,7 +4,7 @@ const { sendEmail } = require("../utils/emailService");
 
 const addPerformance = async (req, res) => {
   try {
-    const { employeeId, score, notes, criteria } = req.body;
+    const { employeeId, score, notes, criteria, evaluationMonth, } = req.body;
 
     const employee = await Employee.findById(employeeId);
     if (!employee) return res.status(404).json({ message: "Employee not found" });
@@ -14,6 +14,7 @@ const addPerformance = async (req, res) => {
       score,
       notes,
       criteria,
+      evaluationMonth,
       date: new Date(),
     });
 
@@ -32,6 +33,75 @@ const addPerformance = async (req, res) => {
   }
 };
 
+
+const getEmployeesWithPerformance = async (req, res) => {
+  try {
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      department,
+    } = req.query;
+
+    const skip = (page - 1) * limit;
+
+    const performanceAggregation = await Performance.aggregate([
+      { $sort: { date: -1 } }, 
+      {
+        $group: {
+          _id: "$employee",
+          latestScore: { $first: "$score" },
+          latestDate: { $first: "$date" }
+        }
+      },
+      { $sort: { latestScore: -1, latestDate: -1 } } 
+    ]);
+
+    const employeeIds = performanceAggregation.map((entry) => entry._id);
+
+    if (!employeeIds.length) {
+      return res.json({ data: [], total: 0, page: 1, pages: 0 });
+    }
+
+    const filters = {
+      _id: { $in: employeeIds },
+      isDeleted: false,
+    };
+
+    if (search) filters.name = { $regex: search, $options: "i" };
+    if (department) filters.department = department;
+
+    const allFilteredEmployees = await Employee.find(filters);
+
+    const orderedEmployees = performanceAggregation
+      .map((perf) => {
+        const emp = allFilteredEmployees.find((e) => e._id.equals(perf._id));
+        if (!emp) return null;
+        return {
+          ...emp.toObject(),
+          latestScore: perf.latestScore,
+          latestEvaluationDate: perf.latestDate,
+        };
+      })
+      .filter(Boolean);
+
+    const paginatedEmployees = orderedEmployees.slice(skip, skip + Number(limit));
+
+    res.json({
+      data: paginatedEmployees,
+      total: orderedEmployees.length,
+      page: Number(page),
+      pages: Math.ceil(orderedEmployees.length / limit),
+    });
+
+  } catch (err) {
+    console.error("Error in getEmployeesWithPerformance:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
 const getPerformanceLabel = (score) => {
   if (score >= 85) return "Excellent";
   if (score >= 70) return "Good";
@@ -42,15 +112,22 @@ const getPerformanceLabel = (score) => {
 const getPerformanceOverview = async (req, res) => {
   try {
     const { employeeId } = req.params;
-    const records = await Performance.find({ employee: employeeId });
+    const records = await Performance.find({ employee: employeeId }).sort({ date: -1 });
 
     if (records.length === 0)
       return res.json({ score: 0, performanceLabel: "No Data" });
 
     const avgScore = records.reduce((acc, r) => acc + r.score, 0) / records.length;
     const label = getPerformanceLabel(avgScore);
+    const latestEvaluationDate = records[0].date;
+    const evaluationMonth = latestEvaluationDate.toISOString().slice(0, 7);;
 
-    res.json({ score: Math.round(avgScore), performanceLabel: label });
+    res.json({
+      score: Math.round(avgScore),
+      performanceLabel: label,
+      evaluationDate: latestEvaluationDate,
+      evaluationMonth:evaluationMonth,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -173,6 +250,7 @@ const getTrainingSuggestions = async (req, res) => {
 
 module.exports = {
   addPerformance,
+  getEmployeesWithPerformance,
   getPerformanceOverview,
   getPerformanceTimeline,
   getStrengthsWeaknesses,

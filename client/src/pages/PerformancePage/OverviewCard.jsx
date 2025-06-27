@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { User, TrendingUp, Award, ArrowRight } from 'lucide-react';
+import { User, TrendingUp, Award, ArrowRight, Calendar } from 'lucide-react';
 
 export default function OverviewCard({ employee = {}, overview = {}, onViewDetails }) {
   const getPerformanceColor = (score) => {
@@ -20,23 +20,23 @@ export default function OverviewCard({ employee = {}, overview = {}, onViewDetai
     <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-50 hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
       {/* Gradient accent */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3B1E54] via-[#9B7EBD] to-[#3B1E54]"></div>
-      
+
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div className="flex items-center space-x-3">
           <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white">
-              {employee.profileImage ? (
-                <img
-                  src={employee.profileImage}
-                  alt={`${employee.name}'s profile`}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full bg-white bg-opacity-20 flex items-center justify-center">
-                  <User className="w-8 h-8 text-white" />
-                </div>
-              )}
-            </div>
+            {employee.profileImage ? (
+              <img
+                src={employee.profileImage}
+                alt={`${employee.name}'s profile`}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-white bg-opacity-20 flex items-center justify-center">
+                <User className="w-8 h-8 text-white" />
+              </div>
+            )}
+          </div>
           <div>
             <h2 className="text-xl font-bold text-[#3B1E54] group-hover:text-[#9B7EBD] transition-colors">
               {employee.name || "Employee Name"}
@@ -55,7 +55,7 @@ export default function OverviewCard({ employee = {}, overview = {}, onViewDetai
       <div className="space-y-4 mb-6">
         <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
           <div className="flex items-center space-x-3">
-            <div 
+            <div
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: getPerformanceColor(overview.score) + '20' }}
             >
@@ -73,6 +73,7 @@ export default function OverviewCard({ employee = {}, overview = {}, onViewDetai
               {overview.score ?? "..."}
             </p>
             <p className="text-xs text-gray-500">/100</p>
+
           </div>
         </div>
 
@@ -87,6 +88,39 @@ export default function OverviewCard({ employee = {}, overview = {}, onViewDetai
             <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] animate-pulse"></div>
           </div>
         </div>
+
+        <div className="space-y-2 mt-3 p-4 bg-gradient-to-r from-[#3B1E54]/5 to-[#9B7EBD]/5 rounded-xl border border-[#9B7EBD]/10">
+        <p className="text-[#3B1E54] text-sm font-medium tracking-wide flex items-center space-x-2 mt-1">
+          <Calendar className="w-4 h-4 text-[#9B7EBD]" />
+          <span>
+            Evaluation Month:{" "}
+            {overview.evaluationMonth
+              ? new Date(overview.evaluationMonth + '-01').toLocaleString('en-US', {
+                month: 'long',
+                year: 'numeric'
+              })
+              : 'No evaluation period set'
+            }
+          </span>
+        </p>
+        {overview.evaluationDate && (
+          <div className="flex items-center space-x-2">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: '#3B1E54' }}
+            ></div>
+            <p className="text-sm font-medium" style={{ color: '#9B7EBD' }}>
+              Evaluated on: {new Date(overview.evaluationDate).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </p>
+          </div>
+        )}
+        </div>
+
       </div>
 
       {/* Action Button */}

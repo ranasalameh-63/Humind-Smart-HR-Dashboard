@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { X, User } from 'lucide-react';
 import PerformanceTimeline from "./PerformanceChart";
 import StrengthsWeaknesses from "./StrengthsWeaknesses";
 import PeerComparison from "./PeerComparison";
 import TrainingSuggestions from "./TrainingSuggestions";
-import AddPerformanceForm from "./PerformanceForm";
 
 
 export default function PerformanceDetailsModal({ employee, onClose }) {
@@ -35,10 +35,28 @@ export default function PerformanceDetailsModal({ employee, onClose }) {
 
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start pt-20 z-50">
-      <div className="bg-white rounded-lg w-[90vw] max-w-4xl p-6 overflow-y-auto max-h-[80vh]">
-        <h2 className="text-2xl font-bold mb-4 text-[#3B1E54]">{employee.name} - Performance Details</h2>
-
+    <div className="fixed inset-0 bg-gradient-to-br from-black/40 via-purple-900/20 to-black/20 backdrop-blur-[1px] flex justify-center items-center z-50 animate-fadeIn">
+      <div className="bg-white/90 backdrop-blur-md rounded-2xl p-8 w-full max-w-2xl max-h-[95vh] overflow-y-auto shadow-2xl relative border border-white/20 transform animate-slideUp">
+    <div className="bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] p-6 text-white relative overflow-hidden mb-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent"></div>
+          <div className="relative flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <User className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">{employee.name}</h2>
+                <p className="text-white/80 text-sm">Performance Details</p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm group"
+            >
+              <X className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+            </button>
+          </div>
+        </div>
         <section className="mb-6">
           <h3 className="font-semibold mb-2">Performance Timeline</h3>
           <PerformanceTimeline timeline={timeline} />
