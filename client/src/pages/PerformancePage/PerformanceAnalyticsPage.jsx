@@ -18,7 +18,7 @@ export default function PerformanceAnalyticsPage() {
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
   const [department, setDepartment] = useState("");
-  const [sortBy, setSortBy] = useState("latestScore"); // أو "latestEvaluationDate"
+  const [sortBy, setSortBy] = useState("latestScore");
   const [totalPages, setTotalPages] = useState(1);
 
     const [isSearchFocused, setIsSearchFocused] = useState(false);

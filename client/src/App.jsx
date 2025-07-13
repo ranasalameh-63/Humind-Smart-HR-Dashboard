@@ -17,10 +17,19 @@ import TicketsPage from "./pages/TicketsPage/TicketsPage";
 import Settings from "./pages/Settings/SystemConfigPage";
 import Login from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import ForgotPassword from './pages/LoginPage/ForgotPassword';
+import ResetPassword from './pages/LoginPage/ResetPassword';
+
 
 function Layout({ children }) {
-  const location = useLocation();
-  const hideNavbarAndFooter = ["/login", "/register"].includes(location.pathname);
+   const location = useLocation();
+  const path = location.pathname;
+
+  const hideNavbarAndFooter =
+    path === "/login" ||
+    path === "/register" ||
+    path === "/forgot-password" ||
+    path.startsWith("/reset-password");
 
   return (
     <>
@@ -48,6 +57,8 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>

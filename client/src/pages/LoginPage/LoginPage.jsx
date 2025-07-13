@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -40,15 +42,15 @@ export default function LoginPage() {
         <div className="max-w-md w-full mx-auto relative z-10 mt-25">
           <div className="mb-8">
             {/* Enhanced Welcome Message */}
-            <div className="mb-8 md:mb-10">
+            <div className="mb-6 md:mb-8">
               <h2 className="text-[#3B1E54] text-3xl sm:text-4xl font-bold mb-2">Welcome back</h2>
               <p className="text-gray-600 text-sm sm:text-base">Please enter your account details to continue</p>
             </div>
            
-            <div className="space-y-6">
+            <div className="space-y-3">
               {/* Enhanced Email Input */}
               <div className="group">
-                <label className="block text-[#3B1E54] text-sm font-medium mb-3 transition-colors">
+                <label className="block text-[#3B1E54] text-sm font-medium mb-1 transition-colors">
                   Email Address
                 </label>
                 <div className="relative">
@@ -65,21 +67,30 @@ export default function LoginPage() {
               </div>
              
               {/* Enhanced Password Input */}
-              <div className="group">
-                <label className="block text-[#3B1E54] text-sm font-medium mb-3 transition-colors">
+               <div className="relative group">
+                <label className="block text-[#3B1E54] text-sm font-medium mb-1 transition-colors">
                   Password
                 </label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full p-3 sm:p-4 rounded-xl bg-gray-50 text-black border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-[#9B7EBD] focus:bg-white transition-all duration-200 placeholder-gray-400"
-                    placeholder="Enter your password"
-                  />
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#9B7EBD] to-[#3B1E54] opacity-0 group-focus-within:opacity-10 transition-opacity duration-200 pointer-events-none"></div>
-                </div>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full p-3 sm:p-4 pr-12 rounded-xl bg-gray-50 text-black border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-[#9B7EBD] focus:bg-white transition-all duration-200 placeholder-gray-400"
+                  placeholder="Enter your password"
+                />
+
+                {/* Gradient effect */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#9B7EBD] to-[#3B1E54] opacity-0 group-focus-within:opacity-10 transition-opacity duration-200 pointer-events-none"></div>
+
+                {/* Toggle Eye button */}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors z-10"
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
               </div>
 
               {/* Forgot Password Link */}

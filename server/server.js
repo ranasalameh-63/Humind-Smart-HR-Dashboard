@@ -19,6 +19,7 @@ const server = http.createServer(app);
 const userRoutes = require('./Routes/usersRoute');
 const employeeRoutes = require('./Routes/employeeRoutes');
 const performanceRoutes = require('./Routes/performanceRoutes');
+const resetPasswordRoutes = require('./Routes/resetPasswordRoutes');
 
 
 // Middleware
@@ -40,6 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", userRoutes);
 app.use("/api/employee", employeeRoutes);
 app.use("/api/performance", performanceRoutes);
+app.use('/api/auth', resetPasswordRoutes);
 
 
 app.get("/", (req, res) => {
