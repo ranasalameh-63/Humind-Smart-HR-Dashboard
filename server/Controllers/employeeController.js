@@ -1,7 +1,7 @@
 const Employee = require("../Models/employeeModel");
 const cloudinary = require("../Config/cloudinary");
 
-// إضافة موظف 
+// Add an employee
 exports.addEmployee = async (req, res) => {
   try {
     const { name, email, phone, department, position, status } = req.body;
