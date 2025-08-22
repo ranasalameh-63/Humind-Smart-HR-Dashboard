@@ -2,13 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const links = [
-  { name: "Dashboard", path: "/dashboard" },
+  { name: "Admin Dashboard", path: "/dashboard" },
   { name: "Performance", path: "/performance" },
   { name: "Trainings", path: "/trainings" },
-  { name: "Churn Risk", path: "/churn" },
+  { name: "Payroll", path: "/payroll" },
   { name: "Employee Profile", path: "/employeeProfile" },
   { name: "Employees Management", path: "/employeesManagement" },
-  { name: "Tickets Page", path: "/ticketsPage" },
   { name: "Settings", path: "/settings" },
   { name: "Login", path: "/login" },
 ];

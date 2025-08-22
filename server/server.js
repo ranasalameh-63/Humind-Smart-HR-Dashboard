@@ -1,6 +1,4 @@
 require("dotenv").config();
-console.log("EMAIL_USER:", process.env.EMAIL_USER);
-console.log("EMAIL_PASS length:", process.env.EMAIL_PASS?.length);
 
 const express = require("express");
 const cors = require("cors");
@@ -8,6 +6,8 @@ const connectDB = require("./Config/DB");
 const cookiesParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const http = require("http");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
 
 const app = express();
@@ -19,10 +19,17 @@ const server = http.createServer(app);
 const userRoutes = require('./Routes/usersRoute');
 const employeeRoutes = require('./Routes/employeeRoutes');
 const performanceRoutes = require('./Routes/performanceRoutes');
+const payrollRoutes = require('./Routes/payrollRoutes')
 const resetPasswordRoutes = require('./Routes/resetPasswordRoutes');
 
 
 // Middleware
+app.use(helmet());
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 300, 
+  message: "Too many requests, please try again later.",
+});
 app.use(bodyParser.json());
 app.use(cookiesParser());
 app.use(
@@ -37,10 +44,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
+
 //Routes
+app.use("/api", apiLimiter);
 app.use("/api/users", userRoutes);
 app.use("/api/employee", employeeRoutes);
 app.use("/api/performance", performanceRoutes);
+app.use("/api/payroll", payrollRoutes);
 app.use('/api/auth', resetPasswordRoutes);
 
 

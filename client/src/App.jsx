@@ -10,6 +10,7 @@ import Home from "./pages/HomePage/home";
 import Dashboard from "./pages/DashboardPage/Dashboard";
 import Performance from "./pages/PerformancePage/PerformanceAnalyticsPage";
 import Trainings from "./pages/TrainingSuggestionsPage/TrainingSuggestionsPage";
+import Payroll from "./pages/payrollPage/PayrollPage";
 import ChurnRisk from "./pages/ChurnRiskPage/ChurnRiskPage";
 import EmployeeProfile from "./pages/EmployeeProfilePage/EmployeeProfilePage";
 import EmployeesManagement from "./pages/EmployeesManagementPage/EmployeesManagementPage";
@@ -50,6 +51,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/performance" element={<Performance />} />
           <Route path="/trainings" element={<Trainings />} />
+          <Route path="/payroll" element={<Payroll />} />
           <Route path="/churn" element={<ChurnRisk />} />
           <Route path="/employeeProfile" element={<EmployeeProfile />} />
           <Route path="/employeesManagement" element={<EmployeesManagement />} />

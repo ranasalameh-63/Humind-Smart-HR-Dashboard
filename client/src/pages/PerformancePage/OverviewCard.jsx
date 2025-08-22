@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { User, TrendingUp, Award, ArrowRight, Calendar } from 'lucide-react';
 
@@ -11,20 +10,20 @@ export default function OverviewCard({ employee = {}, overview = {}, onViewDetai
   };
 
   const getPerformanceIcon = (score) => {
-    if (!score) return <TrendingUp className="w-4 h-4" />;
-    if (score >= 80) return <Award className="w-4 h-4" />;
-    return <TrendingUp className="w-4 h-4" />;
+    if (!score) return <TrendingUp className="w-3.5 h-3.5" />;
+    if (score >= 80) return <Award className="w-3.5 h-3.5" />;
+    return <TrendingUp className="w-3.5 h-3.5" />;
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-50 hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
+    <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300 group relative overflow-hidden">
       {/* Gradient accent */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3B1E54] via-[#9B7EBD] to-[#3B1E54]"></div>
 
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
-        <div className="flex items-center space-x-3">
-          <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white">
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-center space-x-2.5">
+          <div className="w-12 h-12 rounded-full overflow-hidden border border-white">
             {employee.profileImage ? (
               <img
                 src={employee.profileImage}
@@ -33,18 +32,18 @@ export default function OverviewCard({ employee = {}, overview = {}, onViewDetai
               />
             ) : (
               <div className="w-full h-full bg-white bg-opacity-20 flex items-center justify-center">
-                <User className="w-8 h-8 text-white" />
+                <User className="w-6 h-6 text-white" />
               </div>
             )}
           </div>
           <div>
-            <h2 className="text-xl font-bold text-[#3B1E54] group-hover:text-[#9B7EBD] transition-colors">
+            <h2 className="text-base font-bold text-[#3B1E54] group-hover:text-[#9B7EBD] transition-colors">
               {employee.name || "Employee Name"}
             </h2>
-            <p className="text-sm text-gray-600 font-medium">
+            <p className="text-xs text-gray-600 font-medium">
               {employee.position || "Position"}
             </p>
-            <p className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-full inline-block mt-1">
+            <p className="text-[10px] text-gray-500 bg-gray-50 px-2 py-0.5 rounded-full inline-block mt-1">
               {employee.department || "Department"}
             </p>
           </div>
@@ -52,11 +51,11 @@ export default function OverviewCard({ employee = {}, overview = {}, onViewDetai
       </div>
 
       {/* Performance Metrics */}
-      <div className="space-y-4 mb-6">
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-          <div className="flex items-center space-x-3">
+      <div className="space-y-3 mb-4">
+        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <div className="flex items-center space-x-2.5">
             <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              className="w-7 h-7 rounded-md flex items-center justify-center"
               style={{ backgroundColor: getPerformanceColor(overview.score) + '20' }}
             >
               <div style={{ color: getPerformanceColor(overview.score) }}>
@@ -64,76 +63,69 @@ export default function OverviewCard({ employee = {}, overview = {}, onViewDetai
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-700">Performance Score</p>
-              <p className="text-xs text-gray-500">Current rating</p>
+              <p className="text-xs font-medium text-gray-700">Performance Score</p>
+              <p className="text-[10px] text-gray-500">Current rating</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold" style={{ color: getPerformanceColor(overview.score) }}>
+            <p className="text-xl font-bold" style={{ color: getPerformanceColor(overview.score) }}>
               {overview.score ?? "..."}
             </p>
-            <p className="text-xs text-gray-500">/100</p>
-
+            <p className="text-[10px] text-gray-500">/100</p>
           </div>
         </div>
 
-        <div className="p-4 bg-gradient-to-r from-[#3B1E54]/5 to-[#9B7EBD]/5 rounded-xl border border-[#9B7EBD]/10">
+        <div className="p-3 bg-gradient-to-r from-[#3B1E54]/5 to-[#9B7EBD]/5 rounded-lg border border-[#9B7EBD]/10">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-[#3B1E54]">Performance Level</p>
-              <p className="text-lg font-bold text-[#3B1E54]">
+              <p className="text-xs font-medium text-[#3B1E54]">Performance Level</p>
+              <p className="text-sm font-bold text-[#3B1E54]">
                 {overview.performanceLabel || "Loading..."}
               </p>
             </div>
-            <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] animate-pulse"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] animate-pulse"></div>
           </div>
         </div>
 
-        <div className="space-y-2 mt-3 p-4 bg-gradient-to-r from-[#3B1E54]/5 to-[#9B7EBD]/5 rounded-xl border border-[#9B7EBD]/10">
-        <p className="text-[#3B1E54] text-sm font-medium tracking-wide flex items-center space-x-2 mt-1">
-          <Calendar className="w-4 h-4 text-[#9B7EBD]" />
-          <span>
-            Evaluation Month:{" "}
-            {overview.evaluationMonth
-              ? new Date(overview.evaluationMonth + '-01').toLocaleString('en-US', {
-                month: 'long',
-                year: 'numeric'
-              })
-              : 'No evaluation period set'
-            }
-          </span>
-        </p>
-        {overview.evaluationDate && (
-          <div className="flex items-center space-x-2">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: '#3B1E54' }}
-            ></div>
-            <p className="text-sm font-medium" style={{ color: '#9B7EBD' }}>
-              Evaluated on: {new Date(overview.evaluationDate).toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </p>
-          </div>
-        )}
+        <div className="space-y-1.5 mt-2 p-3 bg-gradient-to-r from-[#3B1E54]/5 to-[#9B7EBD]/5 rounded-lg border border-[#9B7EBD]/10">
+          <p className="text-[#3B1E54] text-xs font-medium tracking-wide flex items-center space-x-1.5">
+            <Calendar className="w-3.5 h-3.5 text-[#9B7EBD]" />
+            <span>
+              Evaluation Month:{" "}
+              {overview.evaluationMonth
+                ? new Date(overview.evaluationMonth + '-01').toLocaleString('en-US', {
+                  month: 'long',
+                  year: 'numeric'
+                })
+                : 'No evaluation period set'}
+            </span>
+          </p>
+          {overview.evaluationDate && (
+            <div className="flex items-center space-x-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#3B1E54]"></div>
+              <p className="text-xs font-medium" style={{ color: '#9B7EBD' }}>
+                Evaluated on: {new Date(overview.evaluationDate).toLocaleDateString('en-US', {
+                  weekday: 'short',
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </p>
+            </div>
+          )}
         </div>
-
       </div>
 
       {/* Action Button */}
       <button
         onClick={onViewDetails}
-        className="w-full bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] text-white py-3 px-4 rounded-xl font-semibold 
+        className="w-full bg-gradient-to-r from-[#3B1E54] to-[#9B7EBD] text-white py-2.5 px-3 rounded-lg font-semibold 
                    hover:from-[#9B7EBD] hover:to-[#3B1E54] transition-all duration-300 
-                   flex items-center justify-center space-x-2 group/btn shadow-lg hover:shadow-xl"
+                   flex items-center justify-center space-x-2 group/btn shadow-md hover:shadow-lg text-sm"
       >
         <span>View Details</span>
-        <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+        <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
       </button>
     </div>
   );
 }
-

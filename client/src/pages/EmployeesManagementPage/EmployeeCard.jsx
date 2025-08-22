@@ -56,8 +56,8 @@ export default function EmployeeCard({ emp = {}, onEdit = () => { }, onDelete = 
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold">{emp?.name || "Name Not Available"}</h2>
-              <p className="text-white text-opacity-90 text-lg">
+              <h2 className="text-lg font-bold">{emp?.name || "Name Not Available"}</h2>
+              <p className="text-white text-opacity-90 text-l">
                 {emp?.position || "Position Not Assigned"}
               </p>
             </div>
