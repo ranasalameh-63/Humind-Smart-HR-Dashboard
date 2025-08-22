@@ -2,9 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const links = [
-  { name: "Dashboard", path: "/dashboard" },
+  { name: "Admin Dashboard", path: "/dashboard" },
   { name: "Performance", path: "/performance" },
   { name: "Trainings", path: "/trainings" },
+  { name: "Payroll", path: "/payroll" },
   { name: "Churn Risk", path: "/churn" },
   { name: "Employee Profile", path: "/employeeProfile" },
   { name: "Employees Management", path: "/employeesManagement" },

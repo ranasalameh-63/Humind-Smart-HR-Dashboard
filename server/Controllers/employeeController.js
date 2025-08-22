@@ -73,7 +73,6 @@ exports.getAllEmployees = async (req, res) => {
 };
 
 
-// تعديل بيانات موظف 
 exports.updateEmployee = async (req, res) => {
   try {
     const id = req.params.id;
@@ -114,5 +113,15 @@ exports.deleteEmployee = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.getActiveEmployees = async (req, res) => {
+  try {
+    const employees = await Employee.find({ isDeleted: false, status: "active" });
+    res.json(employees);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 
