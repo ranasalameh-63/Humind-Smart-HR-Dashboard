@@ -165,8 +165,7 @@ export default function PerformanceAnalyticsPage() {
            <button
               className="group relative w-full md:w-auto bg-gradient-to-r from-[#000000] via-[#3B1E54] to-[#9B7EBD] 
                         text-white px-4 py-2 rounded-md font-medium shadow-md shadow-[#000000]/30 
-                        hover:shadow-lg hover:shadow-[#3B1E54]/40 transform hover:-translate-y-0.5 
-                        transition-all duration-300 border border-white/10 hover:border-white/20 text-sm"
+                         duration-300 border border-white/10 hover:border-white/20 text-sm"
               onClick={() => {
                 const firstEmployee = employees[0];
                 if (firstEmployee) {

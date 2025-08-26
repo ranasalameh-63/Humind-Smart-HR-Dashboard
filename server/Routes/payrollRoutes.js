@@ -8,6 +8,6 @@ router.get("/get", payrollController.getAllPayrolls);
 
 router.put("/edit/:id", payrollController.updatePayroll);
 
-router.delete("softDel/:id", payrollController.deletePayroll);
+router.delete("/softDel/:id", payrollController.deletePayroll);
 
 module.exports = router;
